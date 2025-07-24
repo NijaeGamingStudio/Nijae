@@ -6,6 +6,17 @@
     <title>Nijae | 认证</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
+		@import url("webfonts/KunstlerScript/stylesheet.css");
+		
+		/* 字体定义 - Kunstler Script */
+        @font-face {
+            font-family: 'KunstlerScript';
+            src: url('https://github.com/NijaeGamingStudio/Nijae/blob/5f7702e387232d8102e4cc70cb9c2dc95b4f13bb/webfonts/KunstlerScript/KunstlerScript.woff') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+		
         * {
             margin: 0;
             padding: 0;
@@ -71,12 +82,11 @@
         }
         
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            font-size: 5.5rem;
+            font-family: 'KunstlerScript';
+            font-weight: 400;
+            font-size: 8rem;
             letter-spacing: 2px;
             color: var(--charcoal);
-            text-transform: uppercase;
             position: relative;
         }
         
@@ -169,8 +179,8 @@
         }
         
         .brand-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.2rem;
+            font-family: 'KunstlerScript';
+            font-size: 4rem;
             font-weight: 400;
             letter-spacing: 2px;
             color: var(--charcoal);
@@ -229,20 +239,20 @@
             left: 100%;
         }
         
-        /* 生产信息 */
+        /* 生产信息 - 优化后更紧凑的卡片 */
         .production-info {
             max-width: 480px;
             margin: 0 auto 50px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 30px;
+            gap: 15px; /* 减少间距 */
         }
         
         .info-card {
             flex: 1;
-            min-width: 140px;
-            padding: 20px 15px;
+            min-width: 110px; /* 缩小卡片宽度 */
+            padding: 15px 10px; /* 减少内边距 */
             background: rgba(230, 226, 218, 0.3);
             border-radius: 2px;
             border: 1px solid rgba(198, 166, 115, 0.15);
@@ -250,27 +260,27 @@
         
         .info-value {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 1.8rem; /* 减小字体大小 */
             font-weight: 600;
             color: var(--charcoal);
-            margin-bottom: 8px;
+            margin-bottom: 6px; /* 减少间距 */
             line-height: 1;
         }
         
         .info-label {
-            font-size: 0.95rem;
+            font-size: 0.85rem; /* 减小字体大小 */
             color: var(--gray);
-            letter-spacing: 1px;
+            letter-spacing: 0.5px; /* 减少字间距 */
         }
         
         /* 感谢区域 */
         .thank-you {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: var(--gray);
             max-width: 480px;
             margin: 40px auto 0;
-            line-height: 1.9;
-            font-weight: 300;
+            line-height: 1.6;
+            font-weight: 225;
             position: relative;
             padding-top: 30px;
             text-align: center;
@@ -286,11 +296,18 @@
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
         }
+		
+		.thank-you h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 20px;
         
+		}
         .signature {
             margin-top: 60px;
             font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             position: relative;
             display: inline-block;
             padding: 0 30px;
@@ -303,7 +320,7 @@
             top: 50%;
             transform: translateY(-50%);
             color: var(--gold);
-            font-size: 1.2rem;
+            font-size:0.7rem;
         }
         
         .signature::before {
@@ -329,7 +346,7 @@
             user-select: none;
         }
         
-        /* 响应式设计 */
+        /* 响应式设计 - 确保在手机上并排显示 */
         @media (max-width: 600px) {
             .logo { font-size: 4rem; }
             .container {
@@ -345,16 +362,20 @@
             }
             
             .production-info {
-                gap: 15px;
+                gap: 10px; /* 进一步减少间距 */
             }
             
             .info-card {
-                min-width: 120px;
-                padding: 15px 10px;
+                min-width: 100px; /* 进一步缩小宽度 */
+                padding: 12px 8px; /* 进一步减少内边距 */
             }
             
             .info-value {
-                font-size: 1.8rem;
+                font-size: 1.6rem; /* 进一步减小字体大小 */
+            }
+            
+            .info-label {
+                font-size: 0.8rem; /* 进一步减小标签字体大小 */
             }
             
             .thank-you {
@@ -374,15 +395,14 @@
             }
         }
         
+        /* 确保在窄屏幕上仍然并排显示 */
         @media (max-width: 480px) {
             .production-info {
-                flex-direction: column;
-                gap: 20px;
-                max-width: 280px;
+                max-width: 340px; /* 限制最大宽度 */
             }
             
             .info-card {
-                min-width: 100%;
+                min-width: 100px; /* 保持固定宽度 */
             }
         }
         
@@ -394,13 +414,36 @@
             .thank-you {
                 font-size: 0.95rem;
             }
+            
+            .info-card {
+                min-width: 90px; /* 在非常窄的屏幕上进一步缩小 */
+                padding: 10px 6px;
+            }
+            
+            .info-value {
+                font-size: 1.5rem;
+            }
+            
+            .info-label {
+                font-size: 0.75rem;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .production-info {
+                gap: 8px;
+            }
+            
+            .info-card {
+                min-width: 85px;
+            }
         }
     </style>
 </head>
 <body>
     <!-- LOGO动画 -->
     <div class="logo-animation">
-        <div class="logo">NIJAE</div>
+        <div class="logo">Nijae</div>
     </div>
     
     <!-- 装饰元素 -->
@@ -413,14 +456,15 @@
     <div class="watermark" id="watermark">N</div>
     
     <div class="container">
+
         <div class="brand-header">
-            <div class="brand-name">NIJAE</div>
+            <div class="brand-name">Nijae</div>
             <div class="series-info">鼠标垫 · Series [I] · 爱垫系列</div>
         </div>
         
         <div class="product-id-container">
             <div class="serial-label">产品序列号</div>
-            <div class="product-id" id="productId">Mo-027</div>
+            <div class="product-id" id="productId">Mo-001</div>
         </div>
         
         <div class="production-info">
@@ -439,7 +483,7 @@
         </div>
         
         <div class="thank-you">
-            感谢您的支持<br><br>
+          <h3>感谢您的支持</h3>
             每一件产品都承载着我们对品质的坚持与承诺。您的选择是对我们最大的信任，也是我们持续前行的动力。<br><br>
             我们深知，真正的价值不在于华丽的包装，而在于产品本身的质量与体验。感谢您成为Nijae旅程的一部分。
         </div>
