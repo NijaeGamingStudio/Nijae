@@ -117,48 +117,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
         
-        /* 装饰元素 */
-        .ornament {
-            position: absolute;
-            z-index: -1;
-            opacity: 0.1;
-        }
-        
-        .ornament-tl {
-            top: 0;
-            left: 10%;
-            width: 120px;
-            height: 120px;
-            border-top: 1px solid var(--charcoal);
-            border-left: 1px solid var(--charcoal);
-        }
-        
-        .ornament-tr {
-            top: 0;
-            right: 10%;
-            width: 120px;
-            height: 120px;
-            border-top: 1px solid var(--charcoal);
-            border-right: 1px solid var(--charcoal);
-        }
-        
-        .ornament-bl {
-            bottom: 0;
-            left: 10%;
-            width: 120px;
-            height: 120px;
-            border-bottom: 1px solid var(--charcoal);
-            border-left: 1px solid var(--charcoal);
-        }
-        
-        .ornament-br {
-            bottom: 0;
-            right: 10%;
-            width: 120px;
-            height: 120px;
-            border-bottom: 1px solid var(--charcoal);
-            border-right: 1px solid var(--charcoal);
-        }
         
         /* 品牌区域 */
         .brand-header {
@@ -214,7 +172,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 3.8rem;
             font-weight: 600;
-            color: var(--charcoal);
+            color: #d4af37;
             letter-spacing: 1px;
             position: relative;
             display: inline-block;
@@ -262,7 +220,7 @@
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem; /* 减小字体大小 */
             font-weight: 600;
-            color: var(--charcoal);
+            color: var(--gold);
             margin-bottom: 6px; /* 减少间距 */
             line-height: 1;
         }
@@ -385,15 +343,6 @@
             .watermark {
                 font-size: 12rem;
             }
-            
-            .ornament-tl,
-            .ornament-tr,
-            .ornament-bl,
-            .ornament-br {
-                width: 80px;
-                height: 80px;
-            }
-        }
         
         /* 确保在窄屏幕上仍然并排显示 */
         @media (max-width: 480px) {
@@ -446,12 +395,6 @@
         <div class="logo">Nijae</div>
     </div>
     
-    <!-- 装饰元素 -->
-    <div class="ornament ornament-tl"></div>
-    <div class="ornament ornament-tr"></div>
-    <div class="ornament ornament-bl"></div>
-    <div class="ornament ornament-br"></div>
-    
     <!-- 水印背景 -->
     <div class="watermark" id="watermark">N</div>
     
@@ -495,7 +438,7 @@
         // 从URL获取产品参数
         const urlParams = new URLSearchParams(window.location.search);
         const product = urlParams.get('p') || 'mono';
-        const id = urlParams.get('id') || '1';
+        const id = urlParams.get('id') || '27';
         
         // 产品数据映射
         const productCodes = {
