@@ -7,19 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+SC:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-		@font-face {
+				@import url("webfonts/KunstlerScript/stylesheet.css");
+		
+		/* 字体定义 - Kunstler Script */
+        @font-face {
             font-family: 'KunstlerScript';
             src: url('https://github.com/NijaeGamingStudio/Nijae/blob/5f7702e387232d8102e4cc70cb9c2dc95b4f13bb/webfonts/KunstlerScript/KunstlerScript.woff') format('truetype');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+		
         :root {
             --ivory: #f9f7f1;
             --light-ivory: #fcfbf8;
@@ -70,7 +68,7 @@
         .logo-main {
             font-family: 'KunstlerScript';
             font-size: 8rem;
-            font-weight: 700;
+            font-weight: 300;
             color: var(--charcoal);
             letter-spacing: -5px;
             position: relative;
@@ -132,8 +130,8 @@
         
         .brand-name {
             font-family: 'KunstlerScript';
-            font-size: 3.5rem;
-            font-weight: 700;
+            font-size: 4rem;
+            font-weight: 300;
             margin-bottom: 10px;
             color: var(--charcoal);
             position: relative;
@@ -475,8 +473,8 @@
         
         .footer-logo {
             font-family: 'KunstlerScript';
-            font-size: 2.5rem;
-            font-weight: 700;
+            font-size:4rem;
+            font-weight: 300;
             margin-bottom: 20px;
             letter-spacing: 1px;
             color: var(--light-ivory);
@@ -662,8 +660,8 @@
             <div class="card-content">
                 <div class="serial-info">
                     <div class="serial-label">专属序列号</div>
-                    <div class="serial-number" id="serialNumber">MON-012</div>
-                    <div class="serial-label">首发50张 · 聚氨酯星闪底 · 中性偏涩</div>
+                    <div class="serial-number" id="serialNumber">MO-012</div>
+                    <div class="serial-label">聚氨酯星闪底 · 首发50张</div>
                 </div>
                 
                 <div class="product-details">
@@ -785,6 +783,10 @@
                     display: 'yua缘',
                     prefix: 'YUA'
                 }
+				            // 特殊序列号效果
+            if (serialNumber === 1) {
+                document.querySelector('.serial-label').textContent += " · 首位购买";
+                serialElement.style.color = "#d4af37"; // 金色
             };
             
             const productInfo = productMap[product] || productMap.mono;
