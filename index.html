@@ -62,12 +62,15 @@
         
         .logo-container {
             position: relative;
-            overflow: hidden;
+            overflow: visible;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
         }
         
         .logo-main {
             font-family: 'KunstlerScript';
-            font-size: 8rem;
+            font-size: 12rem;
             font-weight: 300;
             color: var(--charcoal);
             letter-spacing: -5px;
@@ -75,6 +78,8 @@
             opacity: 0;
             transform: translateY(30px);
             animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+			line-height: 1;
+			white-space: nowrap;
         }
         
         .logo-subtitle {
@@ -130,7 +135,7 @@
         
         .brand-name {
             font-family: 'KunstlerScript';
-            font-size: 4rem;
+            font-size: 8rem;
             font-weight: 300;
             margin-bottom: 10px;
             color: var(--charcoal);
@@ -263,6 +268,18 @@
             justify-content: center;
             gap: 40px;
             margin-bottom: 40px;
+        }
+		
+		.product-img-content {
+            width: 80%;
+            height: 80%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s ease;
+            opacity: 0.3; /* 添加透明度设置 */
         }
         
         .detail-item {
@@ -633,7 +650,7 @@
         <div class="logo-container">
             <div class="logo-decoration decoration-top"></div>
             <div class="logo-main">Nijae</div>
-            <div class="logo-subtitle">i垫系列</div>
+            <div class="logo-subtitle">爱垫系列</div>
             <div class="logo-decoration decoration-bottom"></div>
         </div>
     </div>
@@ -758,11 +775,10 @@
     </footer>
 
     <script>
-        // 从URL参数获取产品信息
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const product = urlParams.get('product') ;
-            const serial = urlParams.get('serial') ;
+            const product = urlParams.get('product');
+            const serial = urlParams.get('serial');
             
             const productMap = {
                 'mono': { 
@@ -783,21 +799,27 @@
                     display: 'yua缘',
                     prefix: 'YUA'
                 }
-				            // 特殊序列号效果
-            if (serialNumber === 1) {
-                document.querySelector('.serial-label').textContent += " · 首位购买";
-                serialElement.style.color = "#d4af37"; // 金色
             };
             
             const productInfo = productMap[product] || productMap.mono;
+            const serialNumber = parseInt(serial) || 0;
             
             // 更新页面内容
             document.querySelector('.product-name-display').innerHTML = `
                 ${productInfo.name}
                 <span class="japanese-name">${productInfo.japanese}</span>
             `;
-            document.getElementById('serialNumber').textContent = `${productInfo.prefix}-${serial.padStart(3, '0')}`;
-            document.getElementById('productNumber').textContent = serial;
+            
+            const serialElement = document.getElementById('serialNumber');
+            serialElement.textContent = `${productInfo.prefix}-${String(serialNumber).padStart(3, '0')}`;
+            document.getElementById('productNumber').textContent = serialNumber;
+            
+            // 特殊序列号效果
+            if (serialNumber === 1) {
+                const serialLabel = document.querySelector('.serial-label');
+                serialLabel.textContent = serialLabel.textContent + " · 首位购买";
+                serialElement.style.color = "#d4af37"; // 金色
+            }
         });
     </script>
 </body>
