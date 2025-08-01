@@ -45,7 +45,7 @@
             overflow-x: hidden;
         }
         
-        /* 开场LOGO动画 - 修复 */
+        /* 开场LOGO动画 - 移动端优化 */
         .logo-animation {
             position: fixed;
             top: 0;
@@ -62,10 +62,12 @@
         
         .logo-container {
             position: relative;
-            overflow: visible; /* 允许内容溢出 */
             display: flex;
             flex-direction: column;
             align-items: center;
+            width: 100%;
+            text-align: center;
+            padding: 0 20px;
         }
         
         .logo-main {
@@ -78,22 +80,26 @@
             opacity: 0;
             transform: translateY(30px);
             animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
-            line-height: 1; /* 添加行高 */
-            white-space: nowrap; /* 防止换行 */
+            line-height: 0.9; /* 优化行高 */
+        }
+        
+        .logo-subtitle-container {
+            position: relative;
+            width: 100%;
+            margin-top: 20px; /* 增加与主标题间距 */
         }
         
         .logo-subtitle {
-            position: absolute;
-            bottom: -60px;
-            right: 0;
             font-family: 'KunstlerScript';
-            font-size: 1.2rem;
+            font-size: 1.8rem; /* 增大字体 */
             font-weight: 300;
             letter-spacing: 8px;
             text-transform: uppercase;
             color: var(--dark-gray);
             opacity: 0;
+            display: inline-block;
             animation: subtitleAppear 1s ease-out 1.8s forwards;
+            padding-top: 10px; /* 增加顶部间距 */
         }
         
         .logo-decoration {
@@ -101,19 +107,17 @@
             height: 2px;
             background: var(--charcoal);
             opacity: 0;
+            width: 100%;
+            left: 0;
         }
         
         .decoration-top {
-            top: -100px;
-            left: 0;
-            width: 0;
+            top: 0;
             animation: lineExtend 0.8s ease-out 1.5s forwards;
         }
         
         .decoration-bottom {
-            bottom: -100px;
-            right: 0;
-            width: 0;
+            bottom: 0;
             animation: lineExtend 0.8s ease-out 2s forwards;
         }
         
@@ -126,7 +130,7 @@
             animation: contentAppear 1.2s ease-out 3.5s forwards;
         }
         
-        /* 页眉 */
+        /* 页眉 - 移动端优化 */
         .header {
             text-align: center;
             margin: 30px 0 50px;
@@ -137,10 +141,11 @@
             font-family: 'KunstlerScript';
             font-size: 8rem;
             font-weight: 300;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             color: var(--charcoal);
             position: relative;
             display: inline-block;
+            line-height: 1; /* 优化行高 */
         }
         
         .brand-name::after {
@@ -155,19 +160,21 @@
         }
         
         .series-title {
-            font-size: 1.4rem;
+            font-size: 1.8rem; /* 增大字体 */
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--dark-gray);
             margin-top: 40px;
+            padding: 0 10px; /* 增加内边距 */
+            line-height: 1.4; /* 优化行高 */
         }
         
         .divider {
             width: 100px;
             height: 1px;
             background: var(--gray);
-            margin: 25px auto;
+            margin: 30px auto; /* 增加间距 */
         }
         
         /* 认证卡片 */
@@ -580,22 +587,46 @@
             }
         }
         
-        /* 响应式设计 */
+        /* 响应式设计 - 全面优化移动端显示 */
         @media (max-width: 768px) {
+            /* 动画LOGO优化 */
             .logo-main {
-                font-size: 5rem;
+                font-size: 6rem; /* 增大字体 */
+                letter-spacing: -3px;
             }
             
+            .logo-subtitle {
+                font-size: 1.5rem; /* 增大副标题字体 */
+                letter-spacing: 6px;
+                padding-top: 15px; /* 增加与主标题间距 */
+            }
+            
+            .logo-container {
+                padding: 30px 0; /* 增加内边距 */
+            }
+            
+            /* 主标题优化 */
+            .brand-name {
+                font-size: 4.5rem; /* 增大字体 */
+                margin-bottom: 20px; /* 增加底部间距 */
+            }
+            
+            .series-title {
+                font-size: 1.6rem; /* 增大字体 */
+                margin-top: 30px; /* 调整间距 */
+            }
+            
+            .divider {
+                margin: 25px auto; /* 调整间距 */
+            }
+            
+            /* 卡片布局优化 */
             .auth-card {
                 flex-direction: column;
             }
             
             .product-image {
                 min-height: 300px;
-            }
-            
-            .brand-name {
-                font-size: 2.8rem;
             }
             
             .product-details {
@@ -608,17 +639,42 @@
         }
         
         @media (max-width: 480px) {
+            /* 动画LOGO全面优化 */
             .logo-main {
-                font-size: 3.5rem;
-                letter-spacing: -3px;
+                font-size: 4.2rem; /* 进一步增大字体 */
+                letter-spacing: -2px;
+                line-height: 1; /* 优化行高 */
             }
             
             .logo-subtitle {
-                font-size: 0.9rem;
-                letter-spacing: 5px;
-                bottom: -20px;
+                font-size: 1.2rem; /* 增大副标题字体 */
+                letter-spacing: 4px;
+                padding-top: 20px; /* 增加间距 */
+                margin-top: 5px; /* 增加间距 */
             }
             
+            .logo-container {
+                padding: 20px 0; /* 增加内边距 */
+            }
+            
+            .logo-decoration {
+                height: 1.5px; /* 减小装饰线高度 */
+            }
+            
+            /* 主标题全面优化 */
+            .brand-name {
+                font-size: 3.5rem; /* 进一步增大字体 */
+                line-height: 1.1; /* 优化行高 */
+            }
+            
+            .series-title {
+                font-size: 1.4rem; /* 增大字体 */
+                letter-spacing: 3px;
+                line-height: 1.5; /* 优化行高 */
+                margin-top: 25px; /* 调整间距 */
+            }
+            
+            /* 其他元素优化 */
             .serial-number {
                 font-size: 2rem;
             }
@@ -631,28 +687,46 @@
                 grid-template-columns: 1fr;
             }
             
-            .brand-name {
-                font-size: 2.2rem;
+            .product-name-display {
+                font-size: 2.5rem;
             }
             
             .section-title {
                 font-size: 1.8rem;
             }
+        }
+        
+        /* 超小屏幕优化 */
+        @media (max-width: 360px) {
+            .logo-main {
+                font-size: 3.8rem; /* 确保在最小屏幕上可读 */
+            }
             
-            .product-name-display {
-                font-size: 2.5rem;
+            .logo-subtitle {
+                font-size: 1.1rem; /* 确保在最小屏幕上可读 */
+                letter-spacing: 3px;
+            }
+            
+            .brand-name {
+                font-size: 3rem; /* 确保在最小屏幕上可读 */
+            }
+            
+            .series-title {
+                font-size: 1.2rem; /* 确保在最小屏幕上可读 */
             }
         }
     </style>
 </head>
 <body>
-    <!-- 开场LOGO动画 -->
+    <!-- 开场LOGO动画 - 优化布局 -->
     <div class="logo-animation">
         <div class="logo-container">
             <div class="logo-decoration decoration-top"></div>
             <div class="logo-main">Nijae</div>
-            <div class="logo-subtitle">爱垫系列</div>
-            <div class="logo-decoration decoration-bottom"></div>
+            <div class="logo-subtitle-container">
+                <div class="logo-decoration decoration-bottom"></div>
+                <div class="logo-subtitle">i垫系列</div>
+            </div>
         </div>
     </div>
 
@@ -708,7 +782,7 @@
         
         <!-- 系列产品展示 -->
         <section class="products-section">
-            <h2 class="section-title">爱垫系列</h2>
+            <h2 class="section-title">i垫系列</h2>
             <div class="products-grid">
                 <div class="product-card" data-product="mono">
                     <div class="product-img">
@@ -766,7 +840,7 @@
         <div class="footer-content">
             <div class="footer-logo">Nijae</div>
             <p class="footer-tagline">
-                一个注重原创设计，追求完美的外设品牌<br>
+                融合动漫美学的精致外设品牌<br>
                 首发产品NFC卡限量50张，赋予您独特身份与价值
             </p>
             <div class="copyright">
