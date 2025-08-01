@@ -763,8 +763,8 @@
         // 从URL参数获取产品信息
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const product = urlParams.get('product') || 'mono';
-            const serial = urlParams.get('serial') || '012';
+            const product = urlParams.get('product') ;
+            const serial = urlParams.get('serial') ;
             
             const productMap = {
                 'mono': { 
