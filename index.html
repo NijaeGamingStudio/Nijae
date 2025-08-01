@@ -7,9 +7,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+SC:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-				@import url("webfonts/KunstlerScript/stylesheet.css");
-		
-		/* 字体定义 - Kunstler Script */
+        @import url("webfonts/KunstlerScript/stylesheet.css");
+        
+        /* 字体定义 - Kunstler Script */
         @font-face {
             font-family: 'KunstlerScript';
             src: url('https://github.com/NijaeGamingStudio/Nijae/blob/5f7702e387232d8102e4cc70cb9c2dc95b4f13bb/webfonts/KunstlerScript/KunstlerScript.woff') format('truetype');
@@ -17,7 +17,7 @@
             font-style: normal;
             font-display: swap;
         }
-		
+        
         :root {
             --ivory: #f9f7f1;
             --light-ivory: #fcfbf8;
@@ -45,7 +45,7 @@
             overflow-x: hidden;
         }
         
-        /* 开场LOGO动画 */
+        /* 开场LOGO动画 - 修复 */
         .logo-animation {
             position: fixed;
             top: 0;
@@ -62,15 +62,15 @@
         
         .logo-container {
             position: relative;
-            overflow: visible;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+            overflow: visible; /* 允许内容溢出 */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         
         .logo-main {
             font-family: 'KunstlerScript';
-            font-size: 12rem;
+            font-size: 8rem;
             font-weight: 300;
             color: var(--charcoal);
             letter-spacing: -5px;
@@ -78,8 +78,8 @@
             opacity: 0;
             transform: translateY(30px);
             animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
-			line-height: 1;
-			white-space: nowrap;
+            line-height: 1; /* 添加行高 */
+            white-space: nowrap; /* 防止换行 */
         }
         
         .logo-subtitle {
@@ -269,18 +269,6 @@
             gap: 40px;
             margin-bottom: 40px;
         }
-		
-		.product-img-content {
-            width: 80%;
-            height: 80%;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            position: relative;
-            z-index: 2;
-            transition: transform 0.4s ease;
-            opacity: 0.3; /* 添加透明度设置 */
-        }
         
         .detail-item {
             text-align: center;
@@ -423,6 +411,7 @@
             position: relative;
             z-index: 2;
             transition: transform 0.4s ease;
+            opacity: 0.7; /* 图片透明度 */
         }
         
         .product-card:hover .product-img-content {
@@ -472,6 +461,18 @@
             color: var(--dark-gray);
             font-weight: 500;
             letter-spacing: 1px;
+        }
+        
+        /* 非当前产品卡片样式 */
+        .product-card.inactive {
+            opacity: 0.4 !important;
+            transform: translateY(0) scale(0.95) !important;
+            transition: all 0.5s ease;
+        }
+        
+        .product-card.inactive:hover {
+            transform: translateY(-5px) scale(0.97) !important;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
         }
         
         /* 页脚 */
@@ -701,7 +702,7 @@
                 <p><strong>每一件产品都承载着我们对品质的坚持与承诺。您的选择是对我们最大的信任，也是我们持续前行的动力。</strong></p>
               <p></p>
                 <p>我们深知，真正的价值不在于华丽的包装，而在于产品本身的质量与体验。
-				感谢您成为Nijae旅程的一部分。</p>
+                感谢您成为Nijae旅程的一部分。</p>
           </div>
         </div>
         
@@ -709,7 +710,7 @@
         <section class="products-section">
             <h2 class="section-title">i垫系列</h2>
             <div class="products-grid">
-                <div class="product-card">
+                <div class="product-card" data-product="mono">
                     <div class="product-img">
                         <div class="product-pattern"></div>
                         <div class="product-img-content" style="background-image: url('https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/mono-bg.jpg');"></div>
@@ -725,7 +726,7 @@
                     </div>
                 </div>
                 
-                <div class="product-card">
+                <div class="product-card" data-product="yume">
                     <div class="product-img">
                         <div class="product-pattern"></div>
                         <div class="product-img-content" style="background-image: url(https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yume-bg.jpg);"></div>
@@ -741,7 +742,7 @@
                     </div>
                 </div>
                 
-                <div class="product-card">
+                <div class="product-card" data-product="yua">
                     <div class="product-img">
                         <div class="product-pattern"></div>
                         <div class="product-img-content" style="background-image: url('https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yua-bg.jpg');"></div>
@@ -775,10 +776,11 @@
     </footer>
 
     <script>
+        // 从URL参数获取产品信息
         document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const product = urlParams.get('product');
-            const serial = urlParams.get('serial');
+            const product = urlParams.get('product') || 'mono';
+            const serial = urlParams.get('serial') || '12';
             
             const productMap = {
                 'mono': { 
@@ -820,6 +822,16 @@
                 serialLabel.textContent = serialLabel.textContent + " · 首位购买";
                 serialElement.style.color = "#d4af37"; // 金色
             }
+            
+            // 设置卡片透明度 - 在卡片动画完成后执行
+            setTimeout(() => {
+                const allCards = document.querySelectorAll('.product-card');
+                allCards.forEach(card => {
+                    if (card.dataset.product !== product) {
+                        card.classList.add('inactive');
+                    }
+                });
+            }, 4500); // 4.5秒后执行（卡片动画完成后）
         });
     </script>
 </body>
