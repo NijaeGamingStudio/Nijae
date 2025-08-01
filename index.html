@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nijae | 高级产品认证</title>
+    <title>Nijae | i垫系列专属认证</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+SC:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        @font-face {
+		@font-face {
             font-family: 'KunstlerScript';
             src: url('https://github.com/NijaeGamingStudio/Nijae/blob/5f7702e387232d8102e4cc70cb9c2dc95b4f13bb/webfonts/KunstlerScript/KunstlerScript.woff') format('truetype');
             font-weight: normal;
@@ -19,626 +20,782 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
         :root {
-            --ivory: #f5f5f5;
-            --charcoal: #1a1a1a;
-            --light-gray: #e0e0e0;
-            --medium-gray: #9e9e9e;
-            --dark-gray: #616161;
-            --silver: #c0c0c0;
-            --platinum: #e5e5e5;
-            --shadow: rgba(0, 0, 0, 0.1);
+            --ivory: #f9f7f1;
+            --light-ivory: #fcfbf8;
+            --charcoal: #333333;
+            --soft-charcoal: #555;
+            --sand: #d8c9b4;
+            --light-sand: #e8e3d9;
+            --gray: #e0dcd5;
+            --dark-gray: #999;
+            --border: #e0e0e0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
         body {
-            background-color: var(--ivory);
+            font-family: 'Raleway', 'Noto Serif SC', sans-serif;
+            background-color: var(--light-ivory);
             color: var(--charcoal);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            overflow: hidden; /* 防止滚动条导致重排 */
-            line-height: 1.6;
-            letter-spacing: 0.5px;
-            position: relative;
-            background-image: 
-                radial-gradient(circle at 90% 80%, rgba(200, 200, 200, 0.05) 0%, transparent 25%),
-                radial-gradient(circle at 10% 20%, rgba(150, 150, 150, 0.03) 0%, transparent 25%);
+            overflow-x: hidden;
         }
         
-        /* 高级装饰元素 */
-        .decoration {
-            position: fixed;
-            z-index: -1;
-            opacity: 0.05;
-        }
-        
-        .decoration.circle {
-            width: 300px;
-            height: 300px;
-            border: 2px solid var(--dark-gray);
-            border-radius: 50%;
-            top: 10%;
-            left: 15%;
-        }
-        
-        .decoration.rectangle {
-            width: 200px;
-            height: 200px;
-            border: 1.5px solid var(--dark-gray);
-            bottom: 10%;
-            right: 15%;
-            transform: rotate(25deg);
-        }
-        
-        /* LOGO动画 - 优化版本 */
-        @keyframes logoReveal {
-            0% { 
-                opacity: 0; 
-                transform: scale(0.9);
-            }
-            40% { 
-                opacity: 1; 
-                transform: scale(1.02);
-            }
-            100% { 
-                opacity: 0; 
-                transform: scale(1.1);
-            }
-        }
-        
+        /* 开场LOGO动画 */
         .logo-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             background: var(--ivory);
-            z-index: 10;
-            animation: logoReveal 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            will-change: transform, opacity; /* 优化性能 */
+            z-index: 1000;
+            animation: fadeOut 1.5s ease-in-out 3s forwards;
         }
         
-        .logo {
+        .logo-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-main {
             font-family: 'KunstlerScript';
-            font-weight: 400;
             font-size: 8rem;
-            letter-spacing: 2px;
+            font-weight: 700;
+            color: var(--charcoal);
+            letter-spacing: -5px;
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
+        }
+        
+        .logo-subtitle {
+            position: absolute;
+            bottom: -30px;
+            right: 0;
+            font-family: 'KunstlerScript';
+            font-size: 1.2rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            opacity: 0;
+            animation: subtitleAppear 1s ease-out 1.8s forwards;
+        }
+        
+        .logo-decoration {
+            position: absolute;
+            height: 2px;
+            background: var(--charcoal);
+            opacity: 0;
+        }
+        
+        .decoration-top {
+            top: -30px;
+            left: 0;
+            width: 0;
+            animation: lineExtend 0.8s ease-out 1.5s forwards;
+        }
+        
+        .decoration-bottom {
+            bottom: -30px;
+            right: 0;
+            width: 0;
+            animation: lineExtend 0.8s ease-out 2s forwards;
+        }
+        
+        /* 主容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            opacity: 0;
+            animation: contentAppear 1.2s ease-out 3.5s forwards;
+        }
+        
+        /* 页眉 */
+        .header {
+            text-align: center;
+            margin: 30px 0 50px;
+            padding: 0 20px;
+        }
+        
+        .brand-name {
+            font-family: 'KunstlerScript';
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
             color: var(--charcoal);
             position: relative;
-            transform: translateZ(0); /* 触发GPU加速 */
-            backface-visibility: hidden; /* 防止闪烁 */
+            display: inline-block;
         }
         
-        .logo::after {
+        .brand-name::after {
             content: "";
             position: absolute;
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 2px;
-            background: var(--dark-gray);
-            animation: lineExpand 0.8s 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            opacity: 0;
+            width: 60px;
+            height: 1px;
+            background: var(--charcoal);
         }
         
-        @keyframes lineExpand {
-            0% { width: 0; opacity: 0; }
-            100% { width: 80px; opacity: 1; }
+        .series-title {
+            font-size: 1.4rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--dark-gray);
+            margin-top: 40px;
         }
         
-        .container {
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            padding: 50px 30px;
-            opacity: 0;
-            animation: contentFadeIn 1s 2.5s forwards;
-            background: rgba(255, 255, 255, 0.92);
-            border-radius: 8px;
-            box-shadow: 0 15px 50px var(--shadow);
-            border: 1px solid var(--light-gray);
-            transform: translateZ(0); /* 优化性能 */
-            backface-visibility: hidden;
-        }
-        
-        @keyframes contentFadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* 品牌区域 */
-        .brand-header {
-            margin-bottom: 40px;
-            position: relative;
-            padding-bottom: 25px;
-        }
-        
-        .brand-header::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+        .divider {
             width: 100px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, var(--dark-gray), transparent);
-            animation: lineExpand 0.8s 3.2s forwards;
-            opacity: 0;
+            background: var(--gray);
+            margin: 25px auto;
         }
         
-        .brand-name {
-            font-family: 'KunstlerScript';
-            font-size: 4rem;
-            font-weight: 400;
-            letter-spacing: 2px;
-            color: var(--charcoal);
-            margin-bottom: 8px;
-            transform: translateZ(0);
-        }
-        
-        .series-info {
-            font-size: 1.1rem;
-            color: var(--medium-gray);
-            margin-top: 15px;
-            font-weight: 400;
-            letter-spacing: 1px;
+        /* 认证卡片 */
+        .auth-card {
+            background: white;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            max-width: 900px;
+            margin: 0 auto 60px;
+            display: flex;
             position: relative;
-            display: inline-block;
-            padding: 0 10px;
-            transform: translateZ(0);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
         
-        .series-info::before,
-        .series-info::after {
-            content: "•";
+        .auth-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .product-image {
+            flex: 0 0 45%;
+            background: var(--light-ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 400px;
+        }
+        
+        .image-pattern {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--dark-gray);
-            font-size: 0.8rem;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.15;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='20' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='20' cy='80' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='80' r='2' fill='%23333'/%3E%3C/svg%3E");
         }
         
-        .series-info::before {
-            left: -10px;
-        }
-        
-        .series-info::after {
-            right: -10px;
-        }
-        
-        /* 产品信息 */
-        .product-id-container {
-            margin: 30px 0 40px;
+        .product-name-display {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            text-align: center;
+            line-height: 1.3;
+            padding: 20px;
             position: relative;
+            z-index: 2;
+        }
+        
+        .japanese-name {
+            display: block;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-top: 15px;
+            letter-spacing: 2px;
+            color: var(--soft-charcoal);
+        }
+        
+        .card-content {
+            flex: 1;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--light-ivory);
+        }
+        
+        .serial-info {
+            margin-bottom: 30px;
+            text-align: center;
         }
         
         .serial-label {
             font-size: 0.9rem;
             text-transform: uppercase;
             letter-spacing: 3px;
-            color: var(--medium-gray);
-            margin-bottom: 10px;
-            font-weight: 300;
-            transform: translateZ(0);
-        }
-        
-        .product-id {
-            font-family: 'Playfair Display', serif;
-            font-size: 3.8rem;
-            font-weight: 600;
             color: var(--dark-gray);
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-            padding: 0 15px;
-            transform: translateZ(0);
+            margin-bottom: 5px;
         }
         
-        .product-id::before,
-        .product-id::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 40px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--dark-gray), transparent);
-            animation: lineExpand 0.8s 3.5s forwards;
-            opacity: 0;
-        }
-        
-        .product-id::before {
-            right: 100%;
-        }
-        
-        .product-id::after {
-            left: 100%;
-        }
-        
-        /* 生产信息 */
-        .production-info {
-            max-width: 480px;
-            margin: 0 auto 50px;
-            display: flex;
-
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 15px;
-            transform: translateZ(0);
-        }
-        
-        .info-card {
-            flex: 1;
-            min-width: 110px;
-            padding: 18px 12px;
-            background: rgba(240, 240, 240, 0.7);
-            border-radius: 4px;
-            border: 1px solid var(--light-gray);
-            box-shadow: 0 4px 12px var(--shadow);
-            transition: all 0.3s ease;
-            transform: translateZ(0);
-            animation: fadeInUp 0.6s 3.8s forwards;
-            opacity: 0;
-        }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .info-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
-            background: rgba(245, 245, 245, 0.9);
-        }
-        
-        .info-value {
+        .serial-number {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
+            font-size: 2.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: var(--charcoal);
+            margin: 15px 0;
+        }
+        
+        .product-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .detail-item {
+            text-align: center;
+        }
+        
+        .detail-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
             font-weight: 600;
             color: var(--charcoal);
-            margin-bottom: 6px;
-            line-height: 1;
+            margin: 5px 0;
         }
         
-        .info-label {
-            font-size: 0.85rem;
-            color: var(--medium-gray);
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
+        .detail-label {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            letter-spacing: 1px;
         }
         
         /* 感谢区域 */
-        .thank-you {
-            font-size: 0.95rem;
-            color: var(--dark-gray);
-            max-width: 480px;
-            margin: 40px auto 0;
-            line-height: 1.6;
-            font-weight: 300;
-            position: relative;
-            padding-top: 30px;
+        .thank-you-section {
+            max-width: 800px;
+            margin: 0 auto 80px;
+            padding: 40px;
             text-align: center;
-            animation: fadeInUp 0.6s 4.1s forwards;
-            opacity: 0;
+            position: relative;
         }
         
-        .thank-you::before {
-            content: "";
+        .thank-you-section::before {
+            content: """;
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            color: var(--light-sand);
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--dark-gray), transparent);
-            animation: lineExpand 0.8s 4.1s forwards;
-            opacity: 0;
+            line-height: 1;
         }
         
-        .thank-you h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 500;
-            margin-bottom: 20px;
-            color: var(--charcoal);
-            letter-spacing: 1px;
-        }
-        
-        .signature {
-            margin-top: 60px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
+        .thank-you-content {
+            font-size: 1.1rem;
+            line-height: 1.9;
+            color: var(--soft-charcoal);
+            max-width: 600px;
+            margin: 0 auto;
             position: relative;
-            display: inline-block;
-            padding: 0 30px;
-            animation: fadeInUp 0.6s 4.4s forwards;
-            opacity: 0;
+            z-index: 2;
         }
         
-        .signature::before,
-        .signature::after {
-            content: "✻";
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--dark-gray);
-            font-size:0.7rem;
+        .thank-you-content p {
+            margin-bottom: 20px;
         }
         
-        .signature::before {
-            left: 0;
-        }
-        
-        .signature::after {
-            right: 0;
-        }
-        
-        /* 水印背景 */
-        .watermark {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-family: 'Playfair Display', serif;
-            font-size: 18rem;
-            font-weight: 700;
-            color: rgba(150, 150, 150, 0.05);
-            z-index: -1;
-            pointer-events: none;
-            user-select: none;
-            transform: translateZ(0);
-        }
-        
-        /* 产品标签 */
-        .product-tag {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(200, 200, 200, 0.2);
-            padding: 8px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .thank-you-content strong {
             font-weight: 500;
-            border: 1px solid var(--light-gray);
-            animation: fadeIn 0.5s 3.2s forwards;
-            opacity: 0;
+            color: var(--charcoal);
         }
         
-        @keyframes fadeIn {
-            to { opacity: 1; }
+        /* 产品展示 */
+        .products-section {
+            margin: 80px 0;
         }
         
-        /* 底部认证徽章 */
-        .certification-badge {
+        .section-title {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 60px;
+            color: var(--charcoal);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
             position: absolute;
-            bottom: 20px;
+            bottom: -20px;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--medium-gray);
-            animation: fadeIn 0.5s 4.7s forwards;
-            opacity: 0;
+            width: 80px;
+            height: 1px;
+            background: var(--charcoal);
         }
         
-        .certification-badge i {
-            margin-right: 8px;
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid var(--border);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardAppear 0.8s ease-out forwards;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 4.0s; }
+        .product-card:nth-child(2) { animation-delay: 4.2s; }
+        .product-card:nth-child(3) { animation-delay: 4.4s; }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+        }
+        
+        .product-img {
+            height: 250px;
+            background: var(--light-ivory);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='20' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='20' r='2' fill='%23333'/%3E%3Ccircle cx='20' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='50' r='2' fill='%23333'/%3E%3Ccircle cx='20' cy='80' r='2' fill='%23333'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23333'/%3E%3Ccircle cx='80' cy='80' r='2' fill='%23333'/%3E%3C/svg%3E");
+        }
+        
+        .product-img-content {
+            width: 80%;
+            height: 80%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-img-content {
+            transform: scale(1.05);
+        }
+        
+        .product-name-display-card {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 3;
+        }
+        
+        .product-title {
+            font-size: 1.6rem;
+            font-weight: 500;
+            color: var(--charcoal);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .japanese {
+            display: block;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.3rem;
+            margin-top: 5px;
+            letter-spacing: 1px;
+            color: var(--soft-charcoal);
+        }
+        
+        .product-info-card {
+            padding: 30px;
+            text-align: center;
+            background: white;
+        }
+        
+        .product-desc {
+            color: var(--soft-charcoal);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+        
+        .product-quantity {
+            font-size: 0.95rem;
             color: var(--dark-gray);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: var(--charcoal);
+            color: var(--sand);
+            padding: 60px 20px 40px;
+            text-align: center;
+            margin-top: 80px;
+        }
+        
+        .footer-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .footer-logo {
+            font-family: 'KunstlerScript';
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            color: var(--light-ivory);
+        }
+        
+        .footer-tagline {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            line-height: 1.7;
+            color: var(--sand);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            color: var(--dark-gray);
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            margin-top: 30px;
+        }
+        
+        /* 动画关键帧 */
+        @keyframes logoAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes subtitleAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes lineExtend {
+            0% {
+                width: 0;
+                opacity: 0;
+            }
+            100% {
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                visibility: visible;
+            }
+            100% {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        
+        @keyframes contentAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes cardAppear {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         
         /* 响应式设计 */
-        @media (max-width: 600px) {
-            .logo { font-size: 5.5rem; }
-            .container {
-                padding: 40px 20px;
+        @media (max-width: 768px) {
+            .logo-main {
+                font-size: 5rem;
+            }
+            
+            .auth-card {
+                flex-direction: column;
+            }
+            
+            .product-image {
+                min-height: 300px;
             }
             
             .brand-name {
-                font-size: 3rem;
+                font-size: 2.8rem;
             }
             
-            .product-id {
-                font-size: 3rem;
+            .product-details {
+                gap: 20px;
             }
             
-            .production-info {
-                gap: 10px;
-            }
-            
-            .info-card {
-                min-width: 100px;
-                padding: 12px 8px;
-            }
-            
-            .info-value {
-                font-size: 1.6rem;
-            }
-            
-            .info-label {
-                font-size: 0.8rem;
-            }
-            
-            .thank-you {
-                font-size: 0.9rem;
-            }
-            
-            .watermark {
-                font-size: 12rem;
-            }
-            
-            .decoration.circle {
-                width: 200px;
-                height: 200px;
-                top: 5%;
-                left: 5%;
-            }
-            
-            .decoration.rectangle {
-                width: 150px;
-                height: 150px;
-                bottom: 5%;
-                right: 5%;
+            .thank-you-section {
+                padding: 30px 20px;
             }
         }
         
         @media (max-width: 480px) {
-            .production-info {
-                max-width: 340px;
+            .logo-main {
+                font-size: 3.5rem;
+                letter-spacing: -3px;
             }
             
-            .info-card {
-                min-width: 100px;
+            .logo-subtitle {
+                font-size: 0.9rem;
+                letter-spacing: 5px;
+                bottom: -20px;
             }
-        }
-        
-        @media (max-width: 400px) {
-            .logo { font-size: 4.5rem; }
-            .product-id {
+            
+            .serial-number {
+                font-size: 2rem;
+            }
+            
+            .detail-value {
+                font-size: 1.8rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .brand-name {
+                font-size: 2.2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-name-display {
                 font-size: 2.5rem;
-            }
-            
-            .thank-you {
-                font-size: 0.85rem;
-            }
-            
-            .info-card {
-                min-width: 90px;
-                padding: 10px 6px;
-            }
-            
-            .info-value {
-                font-size: 1.5rem;
-            }
-            
-            .info-label {
-                font-size: 0.75rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 装饰元素 -->
-    <div class="decoration circle"></div>
-    <div class="decoration rectangle"></div>
-    
-    <!-- LOGO动画 -->
+    <!-- 开场LOGO动画 -->
     <div class="logo-animation">
-        <div class="logo">Nijae</div>
-    </div>
-    
-    <!-- 水印背景 -->
-    <div class="watermark" id="watermark">N</div>
-    
-    <!-- 主容器 -->
-    <div class="container">
-        <!-- 产品标签 -->
-        <div class="product-tag" id="productTag">Mono 绪</div>
-        
-        <div class="brand-header">
-            <div class="brand-name">Nijae</div>
-            <div class="series-info">鼠标垫 · Series [I] · 爱垫系列</div>
+        <div class="logo-container">
+            <div class="logo-decoration decoration-top"></div>
+            <div class="logo-main">Nijae</div>
+            <div class="logo-subtitle">i垫系列</div>
+            <div class="logo-decoration decoration-bottom"></div>
         </div>
-        
-        <div class="product-id-container">
-            <div class="serial-label">产品序列号</div>
-            <div class="product-id" id="productId">Mo-001</div>
-        </div>
-        
-        <div class="production-info">
-            <div class="info-card">
-                <div class="info-value">50</div>
-                <div class="info-label">总生产量</div>
-            </div>
-            <div class="info-card">
-                <div class="info-value" id="productionId">27</div>
-                <div class="info-label">产品序号</div>
-            </div>
-            <div class="info-card">
-                <div class="info-value">01</div>
-                <div class="info-label">生产批次</div>
-            </div>
-        </div>
-        
-        <div class="thank-you">
-            <h3>感谢您的支持</h3>
-            <p>每一件产品都承载着我们对品质的坚持与承诺。您的选择是对我们最大的信任，也是我们持续前行的动力。</p>
-            <p>我们深知，真正的价值不在于华丽的包装，而在于产品本身的质量与体验。感谢您成为Nijae旅程的一部分。</p>
-        </div>
-        
-        <div class="signature">Nijae团队</div>
-    </div>
-    
-    <!-- 底部认证徽章 -->
-    <div class="certification-badge">
-        <i class="fas fa-shield-alt"></i>
-        <span>正品认证 · 品质保证</span>
     </div>
 
+    <!-- 主内容区 -->
+    <div class="container">
+        <!-- 页眉 -->
+        <div class="header">
+            <h1 class="brand-name">Nijae</h1>
+            <div class="divider"></div>
+            <p class="series-title">/LINE ART MOUSEPAD/</p>
+        </div>
+        
+        <!-- 认证卡片 -->
+        <div class="auth-card">
+            <div class="product-image">
+                <div class="image-pattern"></div>
+                <h2 class="product-name-display">
+                    mono
+                    <span class="japanese-name">緒</span>
+                </h2>
+            </div>
+            
+            <div class="card-content">
+                <div class="serial-info">
+                    <div class="serial-label">专属序列号</div>
+                    <div class="serial-number" id="serialNumber">MON-012</div>
+                    <div class="serial-label">首发50张 · 聚氨酯星闪底 · 中性偏涩</div>
+                </div>
+                
+                <div class="product-details">
+                    <div class="detail-item">
+                        <div class="detail-value">50</div>
+                        <div class="detail-label">生产数量</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-value" id="productNumber">12</div>
+                        <div class="detail-label">您的编号</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 感谢区域 -->
+        <div class="thank-you-section">
+            <div class="thank-you-content">
+                <p><strong>感谢您的支持</strong></p>
+                <p><strong>每一件产品都承载着我们对品质的坚持与承诺。您的选择是对我们最大的信任，也是我们持续前行的动力。</strong></p>
+              <p></p>
+                <p>我们深知，真正的价值不在于华丽的包装，而在于产品本身的质量与体验。
+				感谢您成为Nijae旅程的一部分。</p>
+          </div>
+        </div>
+        
+        <!-- 系列产品展示 -->
+        <section class="products-section">
+            <h2 class="section-title">i垫系列</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="product-pattern"></div>
+                        <div class="product-img-content" style="background-image: url('https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/mono-bg.jpg');"></div>
+                        <div class="product-name-display-card">
+                            <div class="product-title">mono</div>
+                            <div class="japanese">緒</div>
+                        </div>
+                    </div>
+                  <div class="product-info-card">
+                    <h3 class="product-title">mono绪</h3>
+                        <p>&nbsp;</p>
+                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="product-pattern"></div>
+                        <div class="product-img-content" style="background-image: url(https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yume-bg.jpg);"></div>
+                        <div class="product-name-display-card">
+                            <div class="product-title">yume</div>
+                            <div class="japanese">夢</div>
+                        </div>
+                    </div>
+                  <div class="product-info-card">
+                        <h3 class="product-title">yume梦</h3>
+                    <p class="product-desc"></p>
+                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-img">
+                        <div class="product-pattern"></div>
+                        <div class="product-img-content" style="background-image: url('https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yua-bg.jpg');"></div>
+                        <div class="product-name-display-card">
+                            <div class="product-title">yua</div>
+                            <div class="japanese">緣</div>
+                        </div>
+                    </div>
+                  <div class="product-info-card">
+                    <h3 class="product-title">yua缘</h3>
+                        <p>&nbsp;</p>
+                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">Nijae</div>
+            <p class="footer-tagline">
+                融合动漫美学的精致外设品牌<br>
+                首发产品NFC卡限量50张，赋予您独特身份与价值
+            </p>
+            <div class="copyright">
+              © 2025 Nijae Gaming Studio
+          </div>
+        </div>
+    </footer>
+
     <script>
-        // 从URL获取产品参数
-        const urlParams = new URLSearchParams(window.location.search);
-        const product = urlParams.get('p') || 'mono';
-        const id = urlParams.get('id') || '27';
-        
-        // 产品数据映射
-        const productData = {
-            'mono': {
-                code: 'Mo',
-                watermark: 'M',
-                name: 'Mono 绪',
-            },
-            'yume': {
-                code: 'Yu',
-                watermark: 'Y',
-                name: 'Yume 梦',
-            },
-            'yua': {
-                code: 'Yua',
-                watermark: 'U',
-                name: 'Yua 缘',
-            }
-        };
-        
-        // 当前产品数据
-        const currentProduct = productData[product] || productData.mono;
-        
-        // 更新产品信息
-        document.getElementById('productId').textContent = 
-            `${currentProduct.code}-${id.padStart(3, '0')}`;
+        // 从URL参数获取产品信息
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const product = urlParams.get('product') || 'mono';
+            const serial = urlParams.get('serial') || '012';
             
-        document.getElementById('productionId').textContent = id;
+            const productMap = {
+                'mono': { 
+                    name: 'mono', 
+                    japanese: '緒',
+                    display: 'mono绪',
+                    prefix: 'MO'
+                },
+                'yume': { 
+                    name: 'yume', 
+                    japanese: '夢',
+                    display: 'yume梦',
+                    prefix: 'YU'
+                },
+                'yua': { 
+                    name: 'yua', 
+                    japanese: '緣',
+                    display: 'yua缘',
+                    prefix: 'YUA'
+                }
+            };
             
-        document.getElementById('watermark').textContent = 
-            currentProduct.watermark;
+            const productInfo = productMap[product] || productMap.mono;
             
-        document.getElementById('productTag').textContent = currentProduct.name;
-        
-        // 动画结束后移除LOGO元素
-        setTimeout(() => {
-            const logoAnimation = document.querySelector('.logo-animation');
-            if (logoAnimation) {
-                logoAnimation.style.display = 'none';
-            }
-        }, 2200);
-        
-        // 字体加载优化
-        document.fonts.ready.then(() => {
-            // 确保字体加载完成后再开始动画
-            console.log('所有字体已加载完成');
+            // 更新页面内容
+            document.querySelector('.product-name-display').innerHTML = `
+                ${productInfo.name}
+                <span class="japanese-name">${productInfo.japanese}</span>
+            `;
+            document.getElementById('serialNumber').textContent = `${productInfo.prefix}-${serial.padStart(3, '0')}`;
+            document.getElementById('productNumber').textContent = serial;
         });
     </script>
 </body>
