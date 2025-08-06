@@ -28,6 +28,7 @@
             --gray: #e0dcd5;
             --dark-gray: #999;
             --border: #e0e0e0;
+            --gold: #d4af37;
         }
         
         * {
@@ -45,7 +46,7 @@
             overflow-x: hidden;
         }
         
-        /* 开场LOGO动画 - 移动端优化 */
+        /* 重新设计的高级开场LOGO动画 */
         .logo-animation {
             position: fixed;
             top: 0;
@@ -57,7 +58,8 @@
             align-items: center;
             background: var(--ivory);
             z-index: 1000;
-            animation: fadeOut 1.5s ease-in-out 3s forwards;
+            animation: fadeOut 1.5s ease-in-out 3.5s forwards;
+            overflow: hidden;
         }
         
         .logo-container {
@@ -70,55 +72,102 @@
             padding: 0 20px;
         }
         
+        /* 主LOGO - 增大尺寸并优化动画 */
         .logo-main {
             font-family: 'KunstlerScript';
-            font-size: 8rem;
+            font-size: 10rem;
             font-weight: 300;
             color: var(--charcoal);
-            letter-spacing: -5px;
             position: relative;
             opacity: 0;
             transform: translateY(30px);
             animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
-            line-height: 0.9; /* 优化行高 */
+            line-height: 1;
+            letter-spacing: -8px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            margin-bottom: 10px;
+            z-index: 3;
         }
         
+        /* 副标题容器 - 优化布局 */
         .logo-subtitle-container {
             position: relative;
             width: 100%;
-            margin-top: 20px; /* 增加与主标题间距 */
+            margin-top: 5px;
+            overflow: hidden;
+            z-index: 3;
         }
         
+        /* 副标题 - 优化字体大小和间距 */
         .logo-subtitle {
-            font-family: 'KunstlerScript';
-            font-size: 1.8rem; /* 增大字体 */
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.2rem;
             font-weight: 300;
             letter-spacing: 8px;
             text-transform: uppercase;
             color: var(--dark-gray);
             opacity: 0;
             display: inline-block;
-            animation: subtitleAppear 1s ease-out 1.8s forwards;
-            padding-top: 10px; /* 增加顶部间距 */
+            animation: subtitleAppear 1.2s ease-out 1.5s forwards;
+            padding: 5px 0;
+            position: relative;
         }
         
+        /* 重新设计的高级装饰线 - 从中心向两侧延伸 */
         .logo-decoration {
             position: absolute;
             height: 2px;
             background: var(--charcoal);
-            opacity: 0;
+            width: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+        
+        .decoration-left {
+            left: 50%;
+            animation: lineExtendLeft 0.8s ease-out 1.0s forwards;
+        }
+        
+        .decoration-right {
+            right: 50%;
+            animation: lineExtendRight 0.8s ease-out 1.0s forwards;
+        }
+        
+        /* 添加背景装饰元素 */
+        .logo-background {
+            position: absolute;
             width: 100%;
-            left: 0;
-        }
-        
-        .decoration-top {
+            height: 100%;
             top: 0;
-            animation: lineExtend 0.8s ease-out 1.5s forwards;
+            left: 0;
+            z-index: 1;
+            opacity: 0.03;
+            background-image: 
+                radial-gradient(circle at 20% 30%, var(--charcoal) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, var(--charcoal) 1px, transparent 1px);
+            background-size: 100px 100px;
         }
         
-        .decoration-bottom {
-            bottom: 0;
-            animation: lineExtend 0.8s ease-out 2s forwards;
+        /* 添加微妙的粒子动画 */
+        .logo-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            opacity: 0.3;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--charcoal);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float 8s linear infinite;
         }
         
         /* 主容器 */
@@ -127,7 +176,7 @@
             margin: 0 auto;
             padding: 40px 20px;
             opacity: 0;
-            animation: contentAppear 1.2s ease-out 3.5s forwards;
+            animation: contentAppear 1.2s ease-out 4.0s forwards;
         }
         
         /* 页眉 - 移动端优化 */
@@ -145,7 +194,7 @@
             color: var(--charcoal);
             position: relative;
             display: inline-block;
-            line-height: 1; /* 优化行高 */
+            line-height: 1;
         }
         
         .brand-name::after {
@@ -160,21 +209,21 @@
         }
         
         .series-title {
-            font-size: 1.8rem; /* 增大字体 */
+            font-size: 1.8rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: var(--dark-gray);
             margin-top: 40px;
-            padding: 0 10px; /* 增加内边距 */
-            line-height: 1.4; /* 优化行高 */
+            padding: 0 10px;
+            line-height: 1.4;
         }
         
         .divider {
             width: 100px;
             height: 1px;
             background: var(--gray);
-            margin: 30px auto; /* 增加间距 */
+            margin: 30px auto;
         }
         
         /* 认证卡片 */
@@ -380,9 +429,9 @@
             animation: cardAppear 0.8s ease-out forwards;
         }
         
-        .product-card:nth-child(1) { animation-delay: 4.0s; }
-        .product-card:nth-child(2) { animation-delay: 4.2s; }
-        .product-card:nth-child(3) { animation-delay: 4.4s; }
+        .product-card:nth-child(1) { animation-delay: 4.5s; }
+        .product-card:nth-child(2) { animation-delay: 4.7s; }
+        .product-card:nth-child(3) { animation-delay: 4.9s; }
         
         .product-card:hover {
             transform: translateY(-8px);
@@ -418,7 +467,7 @@
             position: relative;
             z-index: 2;
             transition: transform 0.4s ease;
-            opacity: 0.7; /* 图片透明度 */
+            opacity: 0.7;
         }
         
         .product-card:hover .product-img-content {
@@ -520,37 +569,56 @@
             margin-top: 30px;
         }
         
-        /* 动画关键帧 */
+        /* 动画关键帧 - 重新设计 */
         @keyframes logoAppear {
             0% {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(30px) scale(1.1);
+                letter-spacing: -20px;
+            }
+            70% {
+                opacity: 1;
+                letter-spacing: -8px;
             }
             100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
+                letter-spacing: -8px;
             }
         }
         
         @keyframes subtitleAppear {
             0% {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(15px);
+                letter-spacing: 0;
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
+                letter-spacing: 8px;
             }
         }
         
-        @keyframes lineExtend {
+        @keyframes lineExtendLeft {
             0% {
                 width: 0;
-                opacity: 0;
+                left: 50%;
             }
             100% {
-                width: 100%;
-                opacity: 1;
+                width: 40%;
+                left: 10%;
+            }
+        }
+        
+        @keyframes lineExtendRight {
+            0% {
+                width: 0;
+                right: 50%;
+            }
+            100% {
+                width: 40%;
+                right: 10%;
             }
         }
         
@@ -587,37 +655,53 @@
             }
         }
         
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.4;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100px) translateX(20px);
+                opacity: 0;
+            }
+        }
+        
         /* 响应式设计 - 全面优化移动端显示 */
         @media (max-width: 768px) {
             /* 动画LOGO优化 */
             .logo-main {
-                font-size: 6rem; /* 增大字体 */
-                letter-spacing: -3px;
+                font-size: 8rem;
+                letter-spacing: -6px;
             }
             
             .logo-subtitle {
-                font-size: 1.5rem; /* 增大副标题字体 */
+                font-size: 1.8rem;
                 letter-spacing: 6px;
-                padding-top: 15px; /* 增加与主标题间距 */
             }
             
             .logo-container {
-                padding: 30px 0; /* 增加内边距 */
+                padding: 30px 0;
             }
             
             /* 主标题优化 */
             .brand-name {
-                font-size: 4.5rem; /* 增大字体 */
-                margin-bottom: 20px; /* 增加底部间距 */
+                font-size: 4.5rem;
+                margin-bottom: 20px;
             }
             
             .series-title {
-                font-size: 1.6rem; /* 增大字体 */
-                margin-top: 30px; /* 调整间距 */
+                font-size: 1.6rem;
+                margin-top: 30px;
             }
             
             .divider {
-                margin: 25px auto; /* 调整间距 */
+                margin: 25px auto;
             }
             
             /* 卡片布局优化 */
@@ -641,37 +725,37 @@
         @media (max-width: 480px) {
             /* 动画LOGO全面优化 */
             .logo-main {
-                font-size: 4.2rem; /* 进一步增大字体 */
-                letter-spacing: -2px;
-                line-height: 1; /* 优化行高 */
+                font-size: 5.5rem;
+                letter-spacing: -4px;
+                line-height: 1;
+                margin-bottom: 5px;
             }
             
             .logo-subtitle {
-                font-size: 1.2rem; /* 增大副标题字体 */
+                font-size: 1.4rem;
                 letter-spacing: 4px;
-                padding-top: 20px; /* 增加间距 */
-                margin-top: 5px; /* 增加间距 */
+                padding-top: 5px;
             }
             
             .logo-container {
-                padding: 20px 0; /* 增加内边距 */
+                padding: 20px 0;
             }
             
             .logo-decoration {
-                height: 1.5px; /* 减小装饰线高度 */
+                height: 1.5px;
             }
             
             /* 主标题全面优化 */
             .brand-name {
-                font-size: 3.5rem; /* 进一步增大字体 */
-                line-height: 1.1; /* 优化行高 */
+                font-size: 3.5rem;
+                line-height: 1.1;
             }
             
             .series-title {
-                font-size: 1.4rem; /* 增大字体 */
+                font-size: 1.4rem;
                 letter-spacing: 3px;
-                line-height: 1.5; /* 优化行高 */
-                margin-top: 25px; /* 调整间距 */
+                line-height: 1.5;
+                margin-top: 25px;
             }
             
             /* 其他元素优化 */
@@ -699,35 +783,38 @@
         /* 超小屏幕优化 */
         @media (max-width: 360px) {
             .logo-main {
-                font-size: 3.8rem; /* 确保在最小屏幕上可读 */
+                font-size: 4.5rem;
+                letter-spacing: -3px;
             }
             
             .logo-subtitle {
-                font-size: 1.1rem; /* 确保在最小屏幕上可读 */
+                font-size: 1.2rem;
                 letter-spacing: 3px;
             }
             
             .brand-name {
-                font-size: 3rem; /* 确保在最小屏幕上可读 */
+                font-size: 3rem;
             }
             
             .series-title {
-                font-size: 1.2rem; /* 确保在最小屏幕上可读 */
+                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 开场LOGO动画 - 优化布局 -->
+    <!-- 高级开场LOGO动画 -->
     <div class="logo-animation">
+        <div class="logo-background"></div>
         <div class="logo-container">
-            <div class="logo-decoration decoration-top"></div>
             <div class="logo-main">Nijae</div>
             <div class="logo-subtitle-container">
-                <div class="logo-decoration decoration-bottom"></div>
+                <div class="logo-decoration decoration-left"></div>
                 <div class="logo-subtitle">爱垫系列</div>
+                <div class="logo-decoration decoration-right"></div>
             </div>
         </div>
+        <div class="logo-particles" id="particles"></div>
     </div>
 
     <!-- 主内容区 -->
@@ -905,8 +992,39 @@
                         card.classList.add('inactive');
                     }
                 });
-            }, 4500); // 4.5秒后执行（卡片动画完成后）
+            }, 5000); // 5秒后执行（卡片动画完成后）
+            
+            // 创建粒子效果
+            createParticles();
         });
+        
+        // 创建粒子效果函数
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // 随机位置
+                const left = Math.random() * 100;
+                const top = Math.random() * 100;
+                particle.style.left = `${left}%`;
+                particle.style.top = `${top}%`;
+                
+                // 随机大小
+                const size = Math.random() * 3 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机动画延迟
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
     </script>
 </body>
 </html>
