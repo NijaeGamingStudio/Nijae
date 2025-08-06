@@ -7,17 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Noto+Serif+SC:wght@400;600&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        @import url("webfonts/KunstlerScript/stylesheet.css");
-        
-        /* 字体定义 - Kunstler Script */
-        @font-face {
-            font-family: 'KunstlerScript';
-            src: url('https://github.com/NijaeGamingStudio/Nijae/blob/5f7702e387232d8102e4cc70cb9c2dc95b4f13bb/webfonts/KunstlerScript/KunstlerScript.woff') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-            font-display: swap;
-        }
-        
         :root {
             --ivory: #f9f7f1;
             --light-ivory: #fcfbf8;
@@ -74,18 +63,18 @@
         
         /* 主LOGO - 增大尺寸并优化动画 */
         .logo-main {
-            font-family: 'KunstlerScript';
-            font-size: 10rem;
-            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            font-weight: 600;
             color: var(--charcoal);
             position: relative;
             opacity: 0;
             transform: translateY(30px);
             animation: logoAppear 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s forwards;
             line-height: 1;
-            letter-spacing: -8px;
+            letter-spacing: -3px;
             text-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             z-index: 3;
         }
         
@@ -93,15 +82,15 @@
         .logo-subtitle-container {
             position: relative;
             width: 100%;
-            margin-top: 5px;
             overflow: hidden;
             z-index: 3;
+            padding: 10px 0;
         }
         
         /* 副标题 - 优化字体大小和间距 */
         .logo-subtitle {
             font-family: 'Raleway', sans-serif;
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 300;
             letter-spacing: 8px;
             text-transform: uppercase;
@@ -109,29 +98,32 @@
             opacity: 0;
             display: inline-block;
             animation: subtitleAppear 1.2s ease-out 1.5s forwards;
-            padding: 5px 0;
             position: relative;
+            padding: 0 10px;
         }
         
-        /* 重新设计的高级装饰线 - 从中心向两侧延伸 */
+        /* 重新设计的高级装饰线 - 在文字上下方 */
         .logo-decoration {
             position: absolute;
             height: 2px;
             background: var(--charcoal);
             width: 0;
-            top: 50%;
-            transform: translateY(-50%);
             z-index: 2;
+            opacity: 0.8;
         }
         
-        .decoration-left {
+        .decoration-top {
+            top: 0;
             left: 50%;
-            animation: lineExtendLeft 0.8s ease-out 1.0s forwards;
+            transform: translateX(-50%);
+            animation: lineExtendTop 0.8s ease-out 1.0s forwards;
         }
         
-        .decoration-right {
-            right: 50%;
-            animation: lineExtendRight 0.8s ease-out 1.0s forwards;
+        .decoration-bottom {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: lineExtendBottom 0.8s ease-out 1.0s forwards;
         }
         
         /* 添加背景装饰元素 */
@@ -147,27 +139,6 @@
                 radial-gradient(circle at 20% 30%, var(--charcoal) 1px, transparent 1px),
                 radial-gradient(circle at 80% 70%, var(--charcoal) 1px, transparent 1px);
             background-size: 100px 100px;
-        }
-        
-        /* 添加微妙的粒子动画 */
-        .logo-particles {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0;
-            opacity: 0.3;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: var(--charcoal);
-            border-radius: 50%;
-            opacity: 0;
-            animation: float 8s linear infinite;
         }
         
         /* 主容器 */
@@ -187,9 +158,9 @@
         }
         
         .brand-name {
-            font-family: 'KunstlerScript';
-            font-size: 8rem;
-            font-weight: 300;
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            font-weight: 600;
             margin-bottom: 10px;
             color: var(--charcoal);
             position: relative;
@@ -209,7 +180,7 @@
         }
         
         .series-title {
-            font-size: 1.8rem;
+            font-size: 1.4rem;
             font-weight: 300;
             letter-spacing: 4px;
             text-transform: uppercase;
@@ -546,9 +517,9 @@
         }
         
         .footer-logo {
-            font-family: 'KunstlerScript';
+            font-family: 'Playfair Display', serif;
             font-size:4rem;
-            font-weight: 300;
+            font-weight: 600;
             margin-bottom: 20px;
             letter-spacing: 1px;
             color: var(--light-ivory);
@@ -573,52 +544,44 @@
         @keyframes logoAppear {
             0% {
                 opacity: 0;
-                transform: translateY(30px) scale(1.1);
-                letter-spacing: -20px;
-            }
-            70% {
-                opacity: 1;
-                letter-spacing: -8px;
+                transform: translateY(30px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
-                letter-spacing: -8px;
+                transform: translateY(0);
             }
         }
         
         @keyframes subtitleAppear {
             0% {
                 opacity: 0;
-                transform: translateY(15px);
-                letter-spacing: 0;
+                transform: translateY(10px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
-                letter-spacing: 8px;
             }
         }
         
-        @keyframes lineExtendLeft {
+        @keyframes lineExtendTop {
             0% {
                 width: 0;
-                left: 50%;
+                opacity: 0;
             }
             100% {
-                width: 40%;
-                left: 10%;
+                width: 100%;
+                opacity: 1;
             }
         }
         
-        @keyframes lineExtendRight {
+        @keyframes lineExtendBottom {
             0% {
                 width: 0;
-                right: 50%;
+                opacity: 0;
             }
             100% {
-                width: 40%;
-                right: 10%;
+                width: 100%;
+                opacity: 1;
             }
         }
         
@@ -655,33 +618,16 @@
             }
         }
         
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.4;
-            }
-            90% {
-                opacity: 0.2;
-            }
-            100% {
-                transform: translateY(-100px) translateX(20px);
-                opacity: 0;
-            }
-        }
-        
         /* 响应式设计 - 全面优化移动端显示 */
         @media (max-width: 768px) {
             /* 动画LOGO优化 */
             .logo-main {
-                font-size: 8rem;
-                letter-spacing: -6px;
+                font-size: 5rem;
+                margin-bottom: 15px;
             }
             
             .logo-subtitle {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
                 letter-spacing: 6px;
             }
             
@@ -691,12 +637,12 @@
             
             /* 主标题优化 */
             .brand-name {
-                font-size: 4.5rem;
+                font-size: 3.8rem;
                 margin-bottom: 20px;
             }
             
             .series-title {
-                font-size: 1.6rem;
+                font-size: 1.3rem;
                 margin-top: 30px;
             }
             
@@ -725,16 +671,15 @@
         @media (max-width: 480px) {
             /* 动画LOGO全面优化 */
             .logo-main {
-                font-size: 5.5rem;
-                letter-spacing: -4px;
+                font-size: 3.8rem;
+                letter-spacing: -2px;
                 line-height: 1;
-                margin-bottom: 5px;
+                margin-bottom: 10px;
             }
             
             .logo-subtitle {
-                font-size: 1.4rem;
+                font-size: 1.1rem;
                 letter-spacing: 4px;
-                padding-top: 5px;
             }
             
             .logo-container {
@@ -747,12 +692,12 @@
             
             /* 主标题全面优化 */
             .brand-name {
-                font-size: 3.5rem;
+                font-size: 3rem;
                 line-height: 1.1;
             }
             
             .series-title {
-                font-size: 1.4rem;
+                font-size: 1.1rem;
                 letter-spacing: 3px;
                 line-height: 1.5;
                 margin-top: 25px;
@@ -783,38 +728,43 @@
         /* 超小屏幕优化 */
         @media (max-width: 360px) {
             .logo-main {
-                font-size: 4.5rem;
-                letter-spacing: -3px;
+                font-size: 3.2rem;
             }
             
             .logo-subtitle {
-                font-size: 1.2rem;
+                font-size: 1rem;
                 letter-spacing: 3px;
             }
             
             .brand-name {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
             
             .series-title {
-                font-size: 1.2rem;
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- 高级开场LOGO动画 -->
+    <!-- 高级开场LOGO动画 - 优化版 -->
     <div class="logo-animation">
         <div class="logo-background"></div>
         <div class="logo-container">
+            <!-- 顶部线条 -->
+            <div class="logo-decoration decoration-top"></div>
+            
+            <!-- 主LOGO -->
             <div class="logo-main">Nijae</div>
+            
+            <!-- 副标题容器 -->
             <div class="logo-subtitle-container">
-                <div class="logo-decoration decoration-left"></div>
                 <div class="logo-subtitle">爱垫系列</div>
-                <div class="logo-decoration decoration-right"></div>
             </div>
+            
+            <!-- 底部线条 -->
+            <div class="logo-decoration decoration-bottom"></div>
         </div>
-        <div class="logo-particles" id="particles"></div>
     </div>
 
     <!-- 主内容区 -->
@@ -861,10 +811,9 @@
             <div class="thank-you-content">
                 <p><strong>感谢您的支持</strong></p>
                 <p><strong>每一件产品都承载着我们对品质的坚持与承诺。您的选择是对我们最大的信任，也是我们持续前行的动力。</strong></p>
-              <p></p>
                 <p>我们深知，真正的价值不在于华丽的包装，而在于产品本身的质量与体验。
                 感谢您成为Nijae旅程的一部分。</p>
-          </div>
+            </div>
         </div>
         
         <!-- 系列产品展示 -->
@@ -880,26 +829,26 @@
                             <div class="japanese">緒</div>
                         </div>
                     </div>
-                  <div class="product-info-card">
-                    <h3 class="product-title">mono绪</h3>
+                    <div class="product-info-card">
+                        <h3 class="product-title">mono绪</h3>
                         <p>&nbsp;</p>
-                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                        <p class="product-quantity">首发50张 · 每张独立编号</p>
                     </div>
                 </div>
                 
                 <div class="product-card" data-product="yume">
                     <div class="product-img">
                         <div class="product-pattern"></div>
-                        <div class="product-img-content" style="background-image: url(https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yume-bg.jpg);"></div>
+                        <div class="product-img-content" style="background-image: url('https://raw.githubusercontent.com/NijaeGamingStudio/Nijae/main/pictures/yume-bg.jpg');"></div>
                         <div class="product-name-display-card">
                             <div class="product-title">yume</div>
                             <div class="japanese">夢</div>
                         </div>
                     </div>
-                  <div class="product-info-card">
+                    <div class="product-info-card">
                         <h3 class="product-title">yume梦</h3>
-                    <p class="product-desc"></p>
-                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                        <p class="product-desc"></p>
+                        <p class="product-quantity">首发50张 · 每张独立编号</p>
                     </div>
                 </div>
                 
@@ -912,10 +861,10 @@
                             <div class="japanese">緣</div>
                         </div>
                     </div>
-                  <div class="product-info-card">
-                    <h3 class="product-title">yua缘</h3>
+                    <div class="product-info-card">
+                        <h3 class="product-title">yua缘</h3>
                         <p>&nbsp;</p>
-                      <p class="product-quantity">首发50张 · 每张独立编号</p>
+                        <p class="product-quantity">首发50张 · 每张独立编号</p>
                     </div>
                 </div>
             </div>
@@ -931,8 +880,8 @@
                 首发产品NFC卡限量50张，赋予您独特身份与价值
             </p>
             <div class="copyright">
-              © 2025 Nijae Gaming Studio
-          </div>
+                © 2025 Nijae Gaming Studio
+            </div>
         </div>
     </footer>
 
@@ -993,38 +942,7 @@
                     }
                 });
             }, 5000); // 5秒后执行（卡片动画完成后）
-            
-            // 创建粒子效果
-            createParticles();
         });
-        
-        // 创建粒子效果函数
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // 随机位置
-                const left = Math.random() * 100;
-                const top = Math.random() * 100;
-                particle.style.left = `${left}%`;
-                particle.style.top = `${top}%`;
-                
-                // 随机大小
-                const size = Math.random() * 3 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // 随机动画延迟
-                const delay = Math.random() * 5;
-                particle.style.animationDelay = `${delay}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
     </script>
 </body>
 </html>
